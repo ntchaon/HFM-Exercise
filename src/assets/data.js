@@ -1,3 +1,40 @@
+const ElementData = [
+  {
+    image: "/images/main-icon-1.png",
+    detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    image: "/images/main-icon-2.png",
+    detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    image: "/images/main-icon-3.png",
+    detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+  {
+    image: "/images/main-icon-1.png",
+    detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+  },
+];
+
+const PrizeData = [
+  {
+    image: "/images/medal-01.png",
+    prize: "1000",
+    name: "Craz Dapibus",
+  },
+  {
+    image: "/images/medal-02.png",
+    prize: "1000",
+    name: "Craz Dapibus",
+  },
+  {
+    image: "/images/medal-02.png",
+    prize: "1000",
+    name: "Craz Dapibus",
+  },
+];
+
 const InfoData = [
   {
     title: "JANUARY 1st WINNER",
@@ -21,6 +58,12 @@ const InfoData = [
     prize: { isPrize: true, price: "1000" },
   },
 ];
+
+// const FaqData = [
+//   {
+//     title: "xxxx?",
+//   },
+// ];
 
 const RankData = [
   {
@@ -64,4 +107,5 @@ const RankData = [
     gain: "61.74",
   },
 ];
-export { InfoData, RankData };
+
+export { ElementData, InfoData, RankData, PrizeData };

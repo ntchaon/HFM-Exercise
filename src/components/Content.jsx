@@ -1,11 +1,19 @@
 import React, { useState } from "react";
+import Element from "./Element";
 import Card from "./Card";
-import { InfoData, RankData } from "../assets/data";
+import Prize from "./Prize";
+//import Faq from "./Faq";
+import { ElementData, PrizeData, InfoData, RankData } from "../assets/data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import emailjs from "@emailjs/browser";
 const Content = () => {
   const [info, setInfo] = useState(InfoData);
+  //const [prize, setprize] = useState(PrizeData);
+  const [rank, setRank] = useState(RankData);
+  const [prize, setPrize] = useState(PrizeData);
+  const [element, setElement] = useState(ElementData);
+  // form
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",
@@ -35,12 +43,12 @@ const Content = () => {
           console.log("SUCCESS!");
         },
         (error) => {
-          console.log(error)
+          console.log(error);
           console.log("FAILED...", error.text);
         }
       );
   };
-  const [rank, setRank] = useState(RankData);
+
   return (
     <main className="text-sm md:text-base">
       {/* ----- Form ----- */}
@@ -195,7 +203,7 @@ const Content = () => {
                 <div className="flex flex-col text-center lg:text-start items-center lg:items-start w-[50%] lg:w-[180px] mb-14 lg:mb-0 p-2 lg:p-0 block lg:absolute left-[-40%]">
                   <img
                     className="w-[60px] lg:w-auto mb-3"
-                    src="/images/main-icon-1.png"
+                    src="/images/main-icon-2.png"
                     alt=""
                   />
 
@@ -247,14 +255,19 @@ const Content = () => {
         </div>
       </div>
 
-      {/* ----- PRIZES ----- */}
+      {/* ----- Prize ----- */}
       <div className="bg-[#FFFFFF] px-4 py-10 lg:p-[70px]">
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center font-sofia text-4xl md:text-[50px] py-4 md:pb-12">
             PRIZE
           </div>
           <div className="grid justify-items-center grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-[#f4f4f4] rounded-[20px] flex flex-col items-center justify-center w-[250px]  lg:w-full h-[250px] lg:h-[350px]">
+            {prize.map((item) => {
+              return (
+                <Prize name={item.name} prize={item.prize} image={item.image} />
+              );
+            })}
+            {/* <div className="bg-[#f4f4f4] rounded-[20px] flex flex-col items-center justify-center w-[250px]  lg:w-full h-[250px] lg:h-[350px]">
               <div>
                 <img
                   className="w-[60px] lg:w-auto mb-3"
@@ -299,7 +312,7 @@ const Content = () => {
               <div className="text-base md:text-xl text-start h-unset md:h-[4rem] flex items-start md:items-center">
                 CRAS DAPIBUS
               </div>
-            </div>
+            </div> */}
           </div>
           <button className="text-sm md:text-lg bg-[#179149] hover:bg-[#0f6933] transition duration-300 text-white font-bold py-3 w-[307px] rounded mt-4 lg:mt-12 mb-2.5">
             JOIN NOW
@@ -375,7 +388,11 @@ const Content = () => {
           <div className="flex gap-10 flex-col md:flex-row gap-4 my-4">
             <div className="w-full">
               <div className="text-xl font-bold flex justify-between py-3 border-b-[1px] border-[#E4E4E4]">
-                <div>Question A</div>
+                <div>
+                  {/* {info.map((item) => {
+                    return <Faq title={item.title} />;
+                  })} */}
+                </div>
                 <div>
                   <FontAwesomeIcon icon={faChevronDown} />
                 </div>
