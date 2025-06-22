@@ -6,8 +6,6 @@ import Faq from "./Faq";
 import { PrizeData, InfoData, RankData, FaqData } from "../assets/data";
 
 import emailjs from "@emailjs/browser";
-import SelectInput from "./input/Select";
-import InputText from "./input/InputText";
 const Content = () => {
   const [info, setInfo] = useState(InfoData);
   const [rank, setRank] = useState(RankData);
@@ -94,7 +92,8 @@ const Content = () => {
                 <form action={onSubmit}>
                   <div className="flex flex-col sm:flex-row gap-4 my-4">
                     <div className="w-full sm:w-1/2">
-                      <InputText
+                      <input
+                        className="w-full p-[10px] border-[1px] border-[#999999] rounded"
                         type="text"
                         placeholder="First Name"
                         name="first_name"
@@ -104,7 +103,8 @@ const Content = () => {
                     </div>
 
                     <div className="w-full sm:w-1/2">
-                      <InputText
+                      <input
+                        className="w-full p-[10px] border-[1px] border-[#999999] rounded"
                         type="text"
                         placeholder="Last Name"
                         name="last_name"
@@ -115,23 +115,26 @@ const Content = () => {
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4 my-4">
                     <div className="w-full sm:w-1/2">
-                      <SelectInput
+                      <select
+                        className="w-full text-[#999999] p-[10px] border-[1px] border-[#999999] rounded"
                         name="country"
-                        value={form.country}
                         onChange={handleChange}
-                        options={[
-                          { value: "1", label: "Thailand" },
-                          { value: "2", label: "USA" },
-                          { value: "3", label: "China" },
-                          { value: "4", label: "India" },
-                        ]}
-                        placeholder="Country"
-                      />
+                        value={form.country}
+                      >
+                        <option value="" disabled selected>
+                          Country
+                        </option>
+                        <option value="1">Thailand</option>
+                        <option value="2">USA</option>
+                        <option value="3">China</option>
+                        <option value="4">India</option>
+                      </select>
                     </div>
                     <div className="w-full sm:w-1/2">
                       <div className="flex flex-col sm:flex-row gap-4 ">
                         <div className="w-full sm:w-[30%]">
-                          <InputText
+                          <input
+                            className="w-full p-[10px] border-[1px] border-[#999999] rounded"
                             type="number"
                             name="code"
                             onChange={handleChange}
@@ -139,7 +142,8 @@ const Content = () => {
                           />
                         </div>
                         <div className="w-full sm:w-[70%]">
-                          <InputText
+                          <input
+                            className="w-full p-[10px] border-[1px] border-[#999999] rounded"
                             type="tel"
                             name="telephone"
                             onChange={handleChange}
@@ -151,7 +155,8 @@ const Content = () => {
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4">
                     <div className="w-full lg:w-1/2">
-                      <InputText
+                      <input
+                        className="w-full p-[10px] border-[1px] border-[#999999] rounded"
                         type="email"
                         placeholder="Email"
                         name="email"
@@ -159,18 +164,18 @@ const Content = () => {
                       />
                     </div>
                     <div className="w-full lg:w-1/2">
-                      <SelectInput
+                      <select
+                        className="w-full p-[10px] text-[#999999] border-[1px] border-[#999999] rounded"
                         name="experience"
-                        value={form.experience}
                         onChange={handleChange}
-                        options={[
-                          { value: "1", label: "Bad" },
-                          { value: "2", label: "Medium" },
-                          { value: "3", label: "Good" },
-                          { value: "4", label: "Well done" },
-                        ]}
-                        placeholder="Experience"
-                      />
+                      >
+                        <option value="" disabled selected>
+                          Experience
+                        </option>
+                        <option value="1">Bad</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Good</option>
+                      </select>
                     </div>
                   </div>
                   <div className="text-center flex items-center mt-4">
