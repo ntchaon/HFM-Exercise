@@ -2,21 +2,21 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#161616] text-white pt-12 pb-28">
+    <footer className="bg-[#161616] text-white pt-12 pb-12 px-4 lg:pb-28">
       <div className="max-w-7xl mx-auto">
         <div className="flex">
-          <div className="w-full md:w-[25%]">
+          <div className=" w-full lg:w-[25%]">
             <div className='mb-5'>
-              <div className="font-bold text-start mb-2">Find us on</div>
-              <div>
+              <div className="font-bold text-center lg:text-start mb-2">Find us on</div>
+              <div className='flex lg:block justify-center'>
                 <a href="#">
                   <img src="/images/footer-social.png" alt="" />
                 </a>
               </div>
             </div>
             <div>
-              <div className="font-bold text-start mb-4">Download HFM App</div>
-              <div className='flex gap-2'>
+              <div className="font-bold text-center lg:text-start mb-4">Download HFM App</div>
+              <div className='flex justify-center lg:justify-start gap-2'>
                 <a href="#">
                   <img src="/images/appstore.png" alt="" />
                 </a>
@@ -26,7 +26,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-[75%] flex flex-col justify-center">
+          <div className="hidden lg:block w-full lg:w-[75%] flex flex-col justify-center">
             <div className="font-bold text-start mb-10">Risk Warning</div>
             <div className="text-[11px] text-[#999999] text-start">
               Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean

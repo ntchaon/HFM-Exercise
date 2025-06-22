@@ -1,9 +1,9 @@
 const card = (props) => {
 
   return (
-    <div className="relative bg-white rounded-[20px] h-[210px] overflow-hidden">
+    <div className="relative bg-white rounded-[20px] h-[180px] lg:h-[210px]  overflow-hidden">
       {props?.prize?.isPrize ? (
-        <div className="text-lg lg:text-2xl font-bold text-white absolute -right-24 top-3 h-10 lg:h-14 content-center bg-gradient-to-r from-[#FCD678] via-[#FCD678] to-[#BC8C2F]  w-[70%] lg:w-1/2 rotate-45">
+        <div className="text-md md:text-lg lg:text-2xl font-bold text-white absolute max-lg:-right-20 -right-24 top-3 h-10 lg:h-14 content-center bg-gradient-to-r from-[#FCD678] via-[#FCD678] to-[#BC8C2F]  w-[70%] lg:w-1/2 rotate-45">
           ${props?.prize?.price}
         </div>
       ) : null}

@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import Element from "./Element";
+
 import Card from "./Card";
 import Prize from "./Prize";
-//import Faq from "./Faq";
-import { ElementData, PrizeData, InfoData, RankData } from "../assets/data";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import Faq from "./Faq";
+import { PrizeData, InfoData, RankData, FaqData } from "../assets/data";
+
 import emailjs from "@emailjs/browser";
 const Content = () => {
   const [info, setInfo] = useState(InfoData);
-  //const [prize, setprize] = useState(PrizeData);
   const [rank, setRank] = useState(RankData);
   const [prize, setPrize] = useState(PrizeData);
-  const [element, setElement] = useState(ElementData);
-  // form
+  const [faqItems, setFaq] = useState(FaqData);
+  const [isOpen, setIsOpen] = useState([]);
+  //const [element, setElement] = useState(ElementData);
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",
@@ -24,23 +23,42 @@ const Content = () => {
     email: "",
     is_consent: false,
   });
+  const toggleIndex = (index) => {
+    setIsOpen((prev) => {
+      const newState = [...prev];
+      newState[index] = !newState[index];
+      return newState;
+    });
+  };
   const handleChange = (event) => {
     let { value, name } = event.target;
     setForm({ ...form, [name]: value });
-    console.log(value, name);
   };
-  const onSubmit = (value) => {
-    console.log(value);
-    console.log(form);
-    // e.preventDefault();
 
+  const onSubmit = (value) => {
     emailjs
-      .send("service_qrffngu", "template_w2ir9hd", form, {
-        publicKey: "8mxb5Z6SqR54-RxEu",
-      })
+      .send(
+        process.env.REACT_APP_SERVICE_ID,
+        process.env.REACT_APP_TEMPLATE_ID,
+        form,
+        {
+          publicKey: process.env.REACT_APP_PUBLIC_KEY,
+        }
+      )
       .then(
         () => {
-          console.log("SUCCESS!");
+          window.alert("success");
+          // console.log("SUCCESS!");
+          setForm({
+            first_name: "",
+            last_name: "",
+            country: "",
+            code: "",
+            telephone: "",
+            experience: "",
+            email: "",
+            is_consent: false,
+          });
         },
         (error) => {
           console.log(error);
@@ -50,27 +68,30 @@ const Content = () => {
   };
 
   return (
-    <main className="text-sm md:text-base">
+    <main className="text-sm lg:text-base">
       {/* ----- Form ----- */}
-      <div className="bg-[#000000] p-4 lg:pt-16 lg:pb-12">
+      <div
+        style={{ backgroundImage: "url('images/main-bg.png')" }}
+        className=" bg p-4 lg:pt-16 lg:pb-12 md:bg-center bg-cover bg-no-repeat"
+      >
         <div className="container mx-auto">
           <div>
-            <div className="text-center py-10 md:pb-12">
-              <div className="text-4xl md:text-[70px] font-bold font-sofia leading-none bg-gradient-to-r from-[#FCD678] via-[#FCD678] to-[#BC8C2F] bg-clip-text text-transparent">
+            <div className="text-center py-10 lg:pb-12">
+              <div className="text-4xl lg:text-[70px] font-bold font-sofia leading-none bg-gradient-to-r from-[#FCD678] via-[#FCD678] to-[#BC8C2F] bg-clip-text text-transparent">
                 LOREM IPSUM DOLOR
               </div>
-              <div className="text-4xl md:text-[70px] font-bold font-sofia leading-none text-white">
+              <div className="text-4xl lg:text-[70px] font-bold font-sofia leading-none text-white">
                 SIT AMET TOSIK
               </div>
             </div>
             <div className="flex justify-center">
-              <div className="bg-white w-full md:w-[760px] p-4 md:p-9 rounded-[10px]">
-                <div className="text-lg md:text-2xl font-bold">
+              <div className="bg-white w-full lg:w-[760px] p-4 lg:p-9 rounded-[10px]">
+                <div className="text-lg lg:text-2xl font-bold">
                   Lorem ipsum dolor sit amet
                 </div>
                 <form action={onSubmit}>
-                  <div className="flex flex-col md:flex-row gap-4 my-4">
-                    <div className="w-full md:w-1/2">
+                  <div className="flex flex-col sm:flex-row gap-4 my-4">
+                    <div className="w-full sm:w-1/2">
                       <input
                         className="w-full p-[10px] border-[1px] border-[#999999] rounded"
                         type="text"
@@ -81,7 +102,7 @@ const Content = () => {
                       />
                     </div>
 
-                    <div className="w-full md:w-1/2">
+                    <div className="w-full sm:w-1/2">
                       <input
                         className="w-full p-[10px] border-[1px] border-[#999999] rounded"
                         type="text"
@@ -92,8 +113,8 @@ const Content = () => {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col md:flex-row gap-4 my-4">
-                    <div className="w-full md:w-1/2">
+                  <div className="flex flex-col sm:flex-row gap-4 my-4">
+                    <div className="w-full sm:w-1/2">
                       <select
                         className="w-full text-[#999999] p-[10px] border-[1px] border-[#999999] rounded"
                         name="country"
@@ -109,9 +130,9 @@ const Content = () => {
                         <option value="4">India</option>
                       </select>
                     </div>
-                    <div className="w-full md:w-1/2">
-                      <div className="flex flex-col md:flex-row gap-4 ">
-                        <div className="w-full md:w-[30%]">
+                    <div className="w-full sm:w-1/2">
+                      <div className="flex flex-col sm:flex-row gap-4 ">
+                        <div className="w-full sm:w-[30%]">
                           <input
                             className="w-full p-[10px] border-[1px] border-[#999999] rounded"
                             type="number"
@@ -120,7 +141,7 @@ const Content = () => {
                             placeholder="Code"
                           />
                         </div>
-                        <div className="w-full md:w-[70%]">
+                        <div className="w-full sm:w-[70%]">
                           <input
                             className="w-full p-[10px] border-[1px] border-[#999999] rounded"
                             type="tel"
@@ -132,8 +153,8 @@ const Content = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col md:flex-row gap-4">
-                    <div className="w-full md:w-1/2">
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="w-full lg:w-1/2">
                       <input
                         className="w-full p-[10px] border-[1px] border-[#999999] rounded"
                         type="email"
@@ -142,7 +163,7 @@ const Content = () => {
                         onChange={handleChange}
                       />
                     </div>
-                    <div className="w-full md:w-1/2">
+                    <div className="w-full lg:w-1/2">
                       <select
                         className="w-full p-[10px] text-[#999999] border-[1px] border-[#999999] rounded"
                         name="experience"
@@ -181,7 +202,7 @@ const Content = () => {
                     </label>
                   </div>
 
-                  <button className="text-md md:text-lg font-bold text-white  bg-[#179149] hover:bg-[#0f6933] transition duration-300 py-3 w-[307px] rounded mt-4">
+                  <button className="text-md lg:text-lg font-bold text-white  bg-[#179149] hover:bg-[#0f6933] transition duration-300 py-3 w-full sm:w-[307px] rounded mt-4">
                     JOIN NOW
                   </button>
                 </form>
@@ -195,50 +216,14 @@ const Content = () => {
       <div className="bg-[#F5F5F5] px-4 pt-10 lg:pt-16 lg:py-0">
         <div className="container mx-auto">
           <div className="max-w-screen-xl mx-auto">
-            <div className="text-center font-sofia text-4xl md:text-[50px] py-4 md:pb-12">
+            <div className="text-center font-sofia text-4xl lg:text-[50px] py-4 lg:pb-12">
               Quisque rutrum
             </div>
             <div className="md:flex justify-center">
-              <div className="relative flex flex-wrap lg:block">
-                <div className="flex flex-col text-center lg:text-start items-center lg:items-start w-[50%] lg:w-[180px] mb-14 lg:mb-0 p-2 lg:p-0 block lg:absolute left-[-40%]">
+              <div className="relative flex flex-wrap justify-center w-full">
+                <div className="flex flex-col text-center xl:text-start items-center xl:items-start w-[50%] md:w-[30%] xl:w-[180px] mb-14 md:mb-4 xl:mb-0 p-4  lg:p-10 xl:p-0 block relative md:absolute right-unset left-[0] xl:left-[6%] ">
                   <img
-                    className="w-[60px] lg:w-auto mb-3"
-                    src="/images/main-icon-2.png"
-                    alt=""
-                  />
-
-                  <div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </div>
-                </div>
-
-                <div className="flex flex-col text-center lg:text-start items-center lg:items-start w-[50%] lg:w-[180px] mb-14 lg:mb-0 p-2 lg:p-0 block lg:absolute left-[-40%] top-[50%]">
-                  <img
-                    className="w-[60px] lg:w-auto mb-3"
-                    src="/images/main-icon-2.png"
-                    alt=""
-                  />
-
-                  <div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </div>
-                </div>
-
-                <div className="flex flex-col text-center lg:text-start items-center lg:items-start w-[50%] lg:w-[180px] mb-14 lg:mb-0 p-2 lg:p-0 block lg:absolute right-[-40%] ">
-                  <img
-                    className="w-[60px] lg:w-auto mb-3"
-                    src="/images/main-icon-3.png"
-                    alt=""
-                  />
-
-                  <div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </div>
-                </div>
-
-                <div className="flex flex-col text-center lg:text-start items-center lg:items-start w-[50%] lg:w-[180px] mb-14 lg:mb-0 p-2 lg:p-0 block lg:absolute right-[-40%] top-[50%] ">
-                  <img
-                    className="w-[60px] lg:w-auto mb-3"
+                    className="w-[60px] xl:w-auto mb-3"
                     src="/images/main-icon-1.png"
                     alt=""
                   />
@@ -248,7 +233,47 @@ const Content = () => {
                   </div>
                 </div>
 
-                <img src="/images/main-phone.png" alt="" />
+                <div className="flex flex-col text-center xl:text-start items-center xl:items-start w-[50%] md:w-[30%] xl:w-[180px] mb-14 md:mb-4 xl:mb-0 p-4  lg:p-10 xl:p-0 block relative md:absolute right-unset left-[0] xl:left-[6%]   top-unset sm:top-[50%]">
+                  <img
+                    className="w-[60px] xl:w-auto mb-3"
+                    src="/images/main-icon-2.png"
+                    alt=""
+                  />
+
+                  <div>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </div>
+                </div>
+
+                <div className="flex flex-col text-center xl:text-start items-center xl:items-start w-[50%] md:w-[30%] xl:w-[180px] mb-14 md:mb-4 xl:mb-0 p-4  lg:p-10 xl:p-0 block relative md:absolute right-unset right-[0] xl:right-[6%] ">
+                  <img
+                    className="w-[60px] xl:w-auto mb-3"
+                    src="/images/main-icon-3.png"
+                    alt=""
+                  />
+
+                  <div>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </div>
+                </div>
+
+                <div className="flex flex-col text-center xl:text-start items-center xl:items-start w-[50%] md:w-[30%] xl:w-[180px] mb-14 md:mb-4 xl:mb-0 p-4  lg:p-10 xl:p-0 block relative md:absolute right-unset right-[0] xl:right-[6%] top-unset sm:top-[50%] ">
+                  <img
+                    className="w-[60px] xl:w-auto mb-3"
+                    src="/images/main-icon-1.png"
+                    alt=""
+                  />
+
+                  <div>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </div>
+                </div>
+
+                <img
+                  className="w-full md:w-[40%] xl:w-[auto]"
+                  src="/images/main-phone.png"
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -258,7 +283,7 @@ const Content = () => {
       {/* ----- Prize ----- */}
       <div className="bg-[#FFFFFF] px-4 py-10 lg:p-[70px]">
         <div className="max-w-screen-xl mx-auto">
-          <div className="text-center font-sofia text-4xl md:text-[50px] py-4 md:pb-12">
+          <div className="text-center font-sofia text-4xl lg:text-[50px] py-4 lg:pb-12">
             PRIZE
           </div>
           <div className="grid justify-items-center grid-cols-1 sm:grid-cols-3 gap-4">
@@ -267,54 +292,8 @@ const Content = () => {
                 <Prize name={item.name} prize={item.prize} image={item.image} />
               );
             })}
-            {/* <div className="bg-[#f4f4f4] rounded-[20px] flex flex-col items-center justify-center w-[250px]  lg:w-full h-[250px] lg:h-[350px]">
-              <div>
-                <img
-                  className="w-[60px] lg:w-auto mb-3"
-                  src="/images/medal-01.png"
-                  alt=""
-                />
-              </div>
-              <div className="text-2xl lg:text-[50px]mb-4 lg:mb-8 font-bold">
-                $1000
-              </div>
-              <div className="text-base md:text-xl text-start h-unset md:h-[4rem] flex items-start md:items-center">
-                CRAS DAPIBUS &<br />
-                CRAS DAPIBUS
-              </div>
-            </div>
-            <div className="bg-[#f4f4f4] rounded-[20px] flex flex-col items-center justify-center w-[250px]  lg:w-full h-[250px] lg:h-[350px]">
-              <div>
-                <img
-                  className="w-[60px] lg:w-auto mb-3"
-                  src="/images/medal-02.png"
-                  alt=""
-                />
-              </div>
-              <div className="text-2xl lg:text-[50px]mb-4 lg:mb-8 font-bold">
-                $1000
-              </div>
-              <div className="text-base md:text-xl text-start h-unset md:h-[4rem] flex items-start md:items-center">
-                CRAS DAPIBUS
-              </div>
-            </div>
-            <div className="bg-[#f4f4f4] rounded-[20px] flex flex-col items-center justify-center w-[250px]  lg:w-full h-[250px] lg:h-[350px]">
-              <div>
-                <img
-                  className="w-[60px] lg:w-auto mb-3"
-                  src="/images/medal-03.png"
-                  alt=""
-                />
-              </div>
-              <div className="text-2xl lg:text-[50px]mb-4 lg:mb-8 font-bold">
-                $1000
-              </div>
-              <div className="text-base md:text-xl text-start h-unset md:h-[4rem] flex items-start md:items-center">
-                CRAS DAPIBUS
-              </div>
-            </div> */}
           </div>
-          <button className="text-sm md:text-lg bg-[#179149] hover:bg-[#0f6933] transition duration-300 text-white font-bold py-3 w-[307px] rounded mt-4 lg:mt-12 mb-2.5">
+          <button className="text-sm lg:text-lg bg-[#179149] hover:bg-[#0f6933] transition duration-300 text-white font-bold py-3 w-full sm:w-[307px] rounded mt-4 lg:mt-12 mb-2.5">
             JOIN NOW
           </button>
           <div className="text-center text-xs text-[#A8A8A8] hover:text-black  transition duration-300">
@@ -326,11 +305,11 @@ const Content = () => {
       {/* ----- RANK ----- */}
       <div className="bg-[#F5F5F5] px-4 py-10 lg:py-16">
         <div className="max-w-screen-xl mx-auto">
-          <div className="text-center font-sofia text-4xl md:text-[50px] py-4 md:pb-12">
+          <div className="text-center font-sofia text-4xl lg:text-[50px] py-4 lg:pb-12">
             SED FRINGILLA MAURIS SIT
           </div>
-          <div className="flex gap-10 flex-col md:flex-row gap-4 my-4">
-            <div className="w-full md:w-[45%]">
+          <div className="flex gap-10 flex-col sm:flex-row gap-4 my-4">
+            <div className="w-full sm:w-[45%]">
               <div className="grid gap-4">
                 {info.map((item) => {
                   return (
@@ -345,8 +324,8 @@ const Content = () => {
                 })}
               </div>
             </div>
-            <div className="w-full md:w-[55%]">
-              <div className="text-lg lg:text-xl text-center lg:text-start font-bold mb-0 mt-8 lg:mb-10 lg:mt-0">
+            <div className="w-full sm:w-[55%]">
+              <div className="text-lg lg:text-xl text-center md:text-start font-bold mb-0 mt-8 lg:mb-10 lg:mt-0">
                 ALIQUAM LOREM ANT
               </div>
               <table className="w-full t-sm lg:text-base">
@@ -369,10 +348,10 @@ const Content = () => {
             </div>
           </div>
           <div>
-            <button className="bg-[#179149] hover:bg-[#0f6933] transition duration-300 text-white font-bold py-3 w-[307px] rounded mt-t lg:mt-12 mb-2.5">
+            <button className="bg-[#179149] hover:bg-[#0f6933] transition duration-300 text-white font-bold py-3 w-full sm:w-[307px] rounded mt-t lg:mt-12 mb-2.5">
               JOIN NOW
             </button>
-            <div className="text-md md:text-lg text-center text-xs text-[#A8A8A8] hover:text-black  transition duration-300">
+            <div className="text-md lg:text-lg text-center text-xs text-[#A8A8A8] hover:text-black  transition duration-300">
               <a href="#">Terms and Conditions apply</a>
             </div>
           </div>
@@ -382,23 +361,19 @@ const Content = () => {
       {/* ----- FAQ ----- */}
       <div className="bg-[#F5F5F5] px-4 py-10 lg:p-[70px]">
         <div className="max-w-screen-xl mx-auto">
-          <div className="text-center font-sofia text-4xl md:text-[50px] pb-12">
+          <div className="text-center font-sofia text-4xl lg:text-[50px] pb-12">
             FAQs
           </div>
-          <div className="flex gap-10 flex-col md:flex-row gap-4 my-4">
-            <div className="w-full">
-              <div className="text-xl font-bold flex justify-between py-3 border-b-[1px] border-[#E4E4E4]">
-                <div>
-                  {/* {info.map((item) => {
-                    return <Faq title={item.title} />;
-                  })} */}
-                </div>
-                <div>
-                  <FontAwesomeIcon icon={faChevronDown} />
-                </div>
-              </div>
-            </div>
-          </div>
+          {faqItems.map((item, index) => (
+            <Faq
+              key={index}
+              index={index}
+              isOpen={isOpen[index]}
+              onToggle={toggleIndex}
+              question={item.question}
+              answer={item.answer}
+            />
+          ))}
         </div>
       </div>
     </main>

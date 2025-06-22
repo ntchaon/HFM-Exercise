@@ -1,37 +1,37 @@
-const ElementData = [
-  {
-    image: "/images/main-icon-1.png",
-    detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-  },
-  {
-    image: "/images/main-icon-2.png",
-    detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-  },
-  {
-    image: "/images/main-icon-3.png",
-    detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-  },
-  {
-    image: "/images/main-icon-1.png",
-    detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-  },
-];
+// const ElementData = [
+//   {
+//     image: "/images/main-icon-1.png",
+//     detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+//   },
+//   {
+//     image: "/images/main-icon-2.png",
+//     detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+//   },
+//   {
+//     image: "/images/main-icon-3.png",
+//     detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+//   },
+//   {
+//     image: "/images/main-icon-1.png",
+//     detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+//   },
+// ];
 
 const PrizeData = [
   {
     image: "/images/medal-01.png",
     prize: "1000",
-    name: "Craz Dapibus",
+    name: "CRASS DAPIBUS & CRASS DAPIBUS",
   },
   {
     image: "/images/medal-02.png",
     prize: "1000",
-    name: "Craz Dapibus",
+    name: "CRASS DAPIBUS",
   },
   {
     image: "/images/medal-02.png",
     prize: "1000",
-    name: "Craz Dapibus",
+    name: "CRASS DAPIBUS",
   },
 ];
 
@@ -58,12 +58,6 @@ const InfoData = [
     prize: { isPrize: true, price: "1000" },
   },
 ];
-
-// const FaqData = [
-//   {
-//     title: "xxxx?",
-//   },
-// ];
 
 const RankData = [
   {
@@ -108,4 +102,20 @@ const RankData = [
   },
 ];
 
-export { ElementData, InfoData, RankData, PrizeData };
+const FaqData = [
+  {
+    question: "Question A",
+    answer: "Answer A",
+  },
+  {
+    question: "Question B",
+    answer: "Answer B",
+  },
+  {
+    question: "Question C",
+    answer: "Answer C",
+  },
+  { question: "Question D",
+     answer: "Answer D" },
+];
+export { InfoData, RankData, PrizeData, FaqData };
